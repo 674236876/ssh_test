@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <!--启动spring注解支持-->
+       <context:annotation-config />
+
+       <!--spring扫描基本包下所有的注解，纳入spring容器管理-->
+       <context:component-scan base-package="com.ssh.web"/>
+
+       <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+              <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+              <property name="url" value="jdbc:mysql://localhost:3306/sshdemo"/>
+              <property name="username" value="root"/>
+              <property name="password" value="123456"/>
+       </bean>
+
+       <bean name="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+              <property name="dataSource" ref="dataSource"/>
+              <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+       </bean>
+
+</beans>
